@@ -142,7 +142,13 @@
     <script type="module">
         import CONFIG from './js/config.js';
         import SecurityUtils from './js/security.js';
-        import './js/main.js';
+        import { initializeForm } from './js/main.js';
+
+        // Initialize form when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded, initializing form...');
+            initializeForm();
+        });
     </script>
 </body>
 </html>
