@@ -1,4 +1,3 @@
-import CONFIG from './config.js';
 import SecurityUtils from './security.js';
 
 // Export the form initialization function
@@ -58,17 +57,17 @@ export function initializeForm() {
 
         try {
             console.log('Sending to Telegram...'); // Debug log
-            console.log('Using token:', CONFIG.BOT_TOKEN); // Debug log (remove in production)
-            console.log('Using chat ID:', CONFIG.CHAT_ID); // Debug log (remove in production)
+            console.log('Using token:', window.CONFIG.BOT_TOKEN); // Debug log (remove in production)
+            console.log('Using chat ID:', window.CONFIG.CHAT_ID); // Debug log (remove in production)
 
             // First send the text message
-            const messageResponse = await fetch(`https://api.telegram.org/bot${CONFIG.BOT_TOKEN}/sendMessage`, {
+            const messageResponse = await fetch(`https://api.telegram.org/bot${window.CONFIG.BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    chat_id: CONFIG.CHAT_ID,
+                    chat_id: window.CONFIG.CHAT_ID,
                     text: messageText,
                     parse_mode: 'HTML'
                 })
@@ -84,10 +83,10 @@ export function initializeForm() {
             if (resume) {
                 const resumeData = new FormData();
                 resumeData.append('document', resume);
-                resumeData.append('chat_id', CONFIG.CHAT_ID);
+                resumeData.append('chat_id', window.CONFIG.CHAT_ID);
                 resumeData.append('caption', `เรซูเม่ของ ${formData.fullName}`);
 
-                const resumeResponse = await fetch(`https://api.telegram.org/bot${CONFIG.BOT_TOKEN}/sendDocument`, {
+                const resumeResponse = await fetch(`https://api.telegram.org/bot${window.CONFIG.BOT_TOKEN}/sendDocument`, {
                     method: 'POST',
                     body: resumeData
                 });
@@ -103,10 +102,10 @@ export function initializeForm() {
             if (photo) {
                 const photoData = new FormData();
                 photoData.append('photo', photo);
-                photoData.append('chat_id', CONFIG.CHAT_ID);
+                photoData.append('chat_id', window.CONFIG.CHAT_ID);
                 photoData.append('caption', `รูปถ่ายของ ${formData.fullName}`);
 
-                const photoResponse = await fetch(`https://api.telegram.org/bot${CONFIG.BOT_TOKEN}/sendPhoto`, {
+                const photoResponse = await fetch(`https://api.telegram.org/bot${window.CONFIG.BOT_TOKEN}/sendPhoto`, {
                     method: 'POST',
                     body: photoData
                 });
